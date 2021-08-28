@@ -8,11 +8,13 @@ pub mut:
 	pc        u64
 	program   []byte = []byte{}
 	remainder u32
+	eq_flag   bool
 }
 
 pub fn (mut vm VM) run() {
 	for {
 		if vm.pc >= vm.program.len {
+			println('process exceeded, no hlt encountered.')
 			break
 		}
 
@@ -27,7 +29,6 @@ pub fn (mut vm VM) run() {
 				register := int(vm.next_8_bits())
 				number := int(vm.next_16_bits())
 				vm.registers[register] = number
-				continue
 			}
 			.add {
 				a := vm.get_register()
@@ -52,15 +53,28 @@ pub fn (mut vm VM) run() {
 			}
 			.jmp {
 				target := vm.registers[int(vm.next_8_bits())]
-				vm.pc = target
+				vm.pc = u64(target)
+			}
+			.jeq {
+				target := vm.registers[int(vm.next_8_bits())]
+
+				if vm.eq_flag {
+					vm.pc = u64(target)
+				}
 			}
 			.jmpf {
 				n := vm.registers[int(vm.next_8_bits())]
-				vm.pc += n
+				vm.pc += u64(n)
 			}
 			.jmpb {
 				n := vm.registers[int(vm.next_8_bits())]
-				vm.pc -= n
+				vm.pc -= u64(n)
+			}
+			.eq {
+				a := vm.get_register()
+				b := vm.get_register()
+
+				vm.eq_flag = a == b
 			}
 		}
 	}

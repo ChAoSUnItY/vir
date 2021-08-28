@@ -8,6 +8,8 @@ pub enum Opcode {
 	mul
 	div
 	jmp
+	jeq
 	jmpf
 	jmpb
+	eq
 }
