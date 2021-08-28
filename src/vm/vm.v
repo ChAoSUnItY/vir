@@ -80,7 +80,7 @@ pub fn (mut vm VM) run() {
 	}
 }
 
-fn (mut vm VM) decode_opcode() ?Opcode {
+pub fn (mut vm VM) decode_opcode() ?Opcode {
 	vm.pc += 1
 	opcode := Opcode(vm.program[vm.pc - 1])
 
@@ -91,16 +91,16 @@ fn (mut vm VM) decode_opcode() ?Opcode {
 	}
 }
 
-fn (mut vm VM) get_register() int {
+pub fn (mut vm VM) get_register() int {
 	return vm.registers[int(vm.next_8_bits())]
 }
 
-fn (mut vm VM) next_8_bits() u8 {
+pub fn (mut vm VM) next_8_bits() u8 {
 	vm.pc += 1
 	return vm.program[vm.pc - 1]
 }
 
-fn (mut vm VM) next_16_bits() u16 {
+pub fn (mut vm VM) next_16_bits() u16 {
 	vm.pc += 2
 	return u16((u16(vm.program[vm.pc - 2]) << 8) | u16(vm.program[vm.pc - 1]))
 }

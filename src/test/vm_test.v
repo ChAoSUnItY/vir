@@ -1,5 +1,5 @@
 module test
-
-import @asm { Visitor }
-import inst { Instruction }
+import @asm
+import inst
 import vm
+
