@@ -53,7 +53,7 @@ pub fn (mut repl REPL) run() {
 }
 
 fn (mut repl REPL) decompile() string {
-	mut sb := ['==========================\n']
+	mut sb := ['=======================================\n']
 
 	repl.vm.pc = 0
 
@@ -84,7 +84,7 @@ fn (mut repl REPL) decompile() string {
 		}
 	}
 
-	sb << '=========================='
+	sb << '======================================='
 
 	repl.vm.pc = 0
 
