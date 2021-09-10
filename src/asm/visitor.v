@@ -1,7 +1,12 @@
+/**
+*	Visitor has been temporary deprecated due to chain method calling deprecation.
+**/
+
 module @asm
 
 import inst { Instruction }
 
+[deprecated: 'Chain method calling is not avaiable.']
 pub struct Visitor {
 pub mut:
 	instructions []Instruction
