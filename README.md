@@ -72,6 +72,8 @@ Result
 Registers:
 [ 6, 120, 6, 16 ... ]
 ```
+Detail:
+First, we load four values, 1, 2, 6, and 16 into register. The first value indicates loop index (i + 1); while the second value is where evaluator put result to; and the third and forth values refer to times to loop and byte position where loop starts. Then we starts to multiply the first and the second value and then store result to index 2. To loop, we check value at index 1 equals to value at index 2, which is 6 constantly, and invert boolean result. If it's true, then jump to byte index 16 (where the multiplication instruction is), else terminate the process. The final result 120 should store at index 2.
 
 ------
 ## Opcodes
