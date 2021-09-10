@@ -51,23 +51,29 @@ pub fn (mut vm VM) run() {
 				vm.registers[int(vm.next_8_bits())] = a / b
 				vm.remainder = u32(a % b)
 			}
+			.inc {
+				vm.registers[int(vm.next_8_bits())] += 1
+			}
+			.dec {
+				vm.registers[int(vm.next_8_bits())] -= 1
+			}
 			.jmp {
-				target := vm.registers[int(vm.next_8_bits())]
+				target := vm.get_register()
 				vm.pc = u64(target)
 			}
 			.jeq {
-				target := vm.registers[int(vm.next_8_bits())]
+				target := vm.get_register()
 
 				if vm.eq_flag {
 					vm.pc = u64(target)
 				}
 			}
 			.jmpf {
-				n := vm.registers[int(vm.next_8_bits())]
+				n := vm.get_register()
 				vm.pc += u64(n)
 			}
 			.jmpb {
-				n := vm.registers[int(vm.next_8_bits())]
+				n := vm.get_register()
 				vm.pc -= u64(n)
 			}
 			.eq {
@@ -75,6 +81,9 @@ pub fn (mut vm VM) run() {
 				b := vm.get_register()
 
 				vm.eq_flag = a == b
+			}
+			.inv {
+				vm.eq_flag = !vm.eq_flag
 			}
 		}
 	}

@@ -7,9 +7,12 @@ pub enum Opcode {
 	sub
 	mul
 	div
+	inc
+	dec
 	jmp
 	jeq
 	jmpf
 	jmpb
 	eq
+	inv
 }
