@@ -72,7 +72,7 @@ Result
 Registers:
 [ 6, 120, 6, 16 ... ]
 ```
-Detail:
+Detail:  
 First, we load four values, 1, 2, 6, and 16 into register. The first value indicates loop index (i + 1); while the second value is where evaluator put result to; and the third and forth values refer to times to loop and byte position where loop starts. Then we starts to multiply the first and the second value and then store result to index 2. To loop, we check value at index 1 equals to value at index 2, which is 6 constantly, and invert boolean result. If it's true, then jump to byte index 16 (where the multiplication instruction is), else terminate the process. The final result 120 should store at index 2.
 
 ------
@@ -82,13 +82,13 @@ First, we load four values, 1, 2, 6, and 16 into register. The first value indic
 | HLT (00) | N/A | Terminate program |
 | LDC (01) | 1: index <br/>2, 3: i32 value in hex | Load an integer value to register |
 | ADD (02) | 1, 2, 3: index | Add two values from register and store result to register |
-| SUB (03) | `ditto` | Subtract two values from register and store result to register |
-| MUL (04) | `ditto` | Multiply two values from register and store result to register |
-| DIV (05) | `ditto` | Divide two values from register and store result to register |
+| SUB (03) | 1, 2, 3: index | Subtract two values from register and store result to register |
+| MUL (04) | 1, 2, 3: index | Multiply two values from register and store result to register |
+| DIV (05) | 1, 2, 3: index | Divide two values from register and store result to register |
 | INC (06) | 1: index | Increment value |
 | DEC (07) | 1: index | Decrement value |
 | JMP (08) | 1: index | Change current process byte loading index to providing index, notice that target index destination must be a opcode instruction. |
-| JEQ (09) | `ditto` | Same as JMP, but conditionally changes current process byte loading index depends on VM's current eq flag. |
+| JEQ (09) | 1: index | Same as JMP, but conditionally changes current process byte loading index depends on VM's current eq flag. |
 | JMPF (10) | 1: relative forward position | Increment current process byte loading index with providing value. |
 | JMPB (11) | 1: relative backward position | Decrement current process byte loading index with providing value. |
 | EQ (12) | 1, 2: index | Compare two value's equality and store result to VM's eq flag. |
