@@ -2,6 +2,7 @@ module repl
 
 import readline
 import vm { VM }
+//import chaosunity.colored
 
 pub struct REPL {
 pub mut:
@@ -39,9 +40,14 @@ pub fn (mut repl REPL) run() {
 				println(repl.vm.program)
 			}
 			':decompile' {
-				println(repl.decompile())
+				repl.decompile()
 			}
 			else {
+				if buf.starts_with(':') {
+					eprintln('Unknown command ${buf}.')
+					continue
+				}
+
 				bytecode := buf.split(' ').map(byte(it.i8()))
 
 				repl.vm.program << bytecode
@@ -52,8 +58,8 @@ pub fn (mut repl REPL) run() {
 	}
 }
 
-fn (mut repl REPL) decompile() string {
-	mut sb := ['=======================================\n']
+fn (mut repl REPL) decompile() {
+	println('=======================================')
 
 	repl.vm.pc = 0
 
@@ -68,8 +74,10 @@ fn (mut repl REPL) decompile() string {
 
 		match opcode {
 			.hlt {
-				sb << '00\n'
-				sb << 'HLT\n'
+				println('00')
+				//colorize.magenta()
+				println("HLT")
+				//colorize.reset()
 			}
 			.ldc {
 				target := repl.next_8_bits()
@@ -77,18 +85,35 @@ fn (mut repl REPL) decompile() string {
 				v2 := repl.next_8_bits()
 				value := u16((u16(v1 << 8) | u16(v2)))
 
-				sb << '01\t${target.hex()}\t\t${v1.hex()}\t${v2.hex()}\n'
-				sb << 'LDC\tindex: ${target.str()}\tvalue:${value.str()}\n'
+				println('01\t${target.hex()}\t\t${v1.hex()}\t${v2.hex()}')
+
+				//colorize.magenta()
+				print('LDC\t')
+				//colorize.yellow()
+				print('index: ${target.str()}\t')
+				//colorize.green()
+				println('value: ${value.str()}')
+				//colorize.reset()
+			}
+			.add, .sub, .mul, .div {
+				i1 := repl.next_8_bits()
+				i2 := repl.next_8_bits()
+				i3 := repl.next_8_bits()
+
+				println('${int(opcode).hex()}\t\t${i1.hex()}\t${i2.hex()}\t\t${i3.hex()}')
+
+				//colorize.magenta()
+				print('${opcode.str().to_upper()}\t')
+				//colorize.yellow()
+				println('index 0: ${i1.str()}\tindex 1: ${i2.str()}\tindex 2: ${i3.str()}')
 			}
 			else {}
 		}
 	}
 
-	sb << '======================================='
+	println('=======================================')
 
 	repl.vm.pc = 0
-
-	return sb.join('')
 }
 
 fn (mut repl REPL) next_8_bits() u8 {
