@@ -145,30 +145,30 @@ fn (mut repl REPL) decompile() {
 				// colorize.reset()
 			}
 			.ldc {
-				target := repl.next_8_bits()
+				i := repl.next_8_bits()
 				v1 := repl.next_8_bits()
 				v2 := repl.next_8_bits()
 				value := u16((u16(v1 << 8) | u16(v2)))
 
-				println('01\t$target.hex()\t\t$v1.hex()\t$v2.hex()')
+				println('01\t$i.hex()\t\t$v1.hex()\t$v2.hex()')
 
 				// colorize.magenta()
 				print('LDC\t')
 
 				// colorize.yellow()
-				print('index: $target.str()\t')
+				print('index: $i.str()\t')
 
 				// colorize.green()
 				println('value: $value.str()')
 
 				// colorize.reset()
 			}
-			.add, .sub, .mul, .div {
+			.add, .sub, .mul, .div, .eq {
 				i1 := repl.next_8_bits()
 				i2 := repl.next_8_bits()
 				i3 := repl.next_8_bits()
 
-				println('${int(opcode).hex()}\t\t$i1.hex()\t$i2.hex()\t\t$i3.hex()')
+				println('${int(opcode).hex()}\t$i1.hex()\t$i2.hex()\t\t$i3.hex()')
 
 				// colorize.magenta()
 				print('$opcode.str().to_upper()\t')
@@ -176,10 +176,23 @@ fn (mut repl REPL) decompile() {
 				// colorize.yellow()
 				println('index 0: $i1.str()\tindex 1: $i2.str()\tindex 2: $i3.str()')
 			}
-			.jmpf {
-				println('lol')
+			.inc, .dec, .jmp, .jeq, .jmpf, .jmpb {
+				i := repl.next_8_bits()
+
+				println('${int(opcode).hex()}\t$i.hex()')
+
+				// colorize.magenta()
+				print('$opcode.str().to_upper()\t')
+
+				// colorize.yellow()
+				println('index: $i.str()')
 			}
-			else {}
+			.inv {
+				println('${int(opcode).hex()}')
+
+				// colorize.magenta()
+				println('$opcode.str().to_upper()')
+			}
 		}
 	}
 

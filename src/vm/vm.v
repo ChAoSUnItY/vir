@@ -90,13 +90,13 @@ pub fn (mut vm VM) run() {
 }
 
 pub fn (mut vm VM) decode_opcode() ?Opcode {
+	opcode := Opcode(vm.program[vm.pc])
 	vm.pc += 1
-	opcode := Opcode(vm.program[vm.pc - 1])
 
 	return if opcode.str() != 'unknown enum value' {
 		opcode
 	} else {
-		error('Unknown opcode. byte 0x${vm.program[vm.pc - 1].hex()}')
+		error('Unknown opcode. Position ${vm.pc - 1} has byte 0x${vm.program[vm.pc - 1].hex()}')
 	}
 }
 
