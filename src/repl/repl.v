@@ -48,7 +48,7 @@ pub fn (mut repl REPL) run() {
 					continue
 				}
 
-				bytecode := buf.split(' ').map(byte(it.i8()))
+				bytecode := buf.split(' ').map(byte('0x${it}'.i8()))
 
 				repl.vm.program << bytecode
 
@@ -106,6 +106,9 @@ fn (mut repl REPL) decompile() {
 				print('${opcode.str().to_upper()}\t')
 				//colorize.yellow()
 				println('index 0: ${i1.str()}\tindex 1: ${i2.str()}\tindex 2: ${i3.str()}')
+			}
+			.jmpf {
+				println('lol')
 			}
 			else {}
 		}
