@@ -42,7 +42,7 @@ Registers:
 
 Bytecode
 ```
-01 00 00 01 01 01 00 01 01 02 00 06 01 03 00 10 04 00 01 01 06 00 0c 00 02 0d 09 03 00
+01 00 00 01 01 01 00 01 01 02 00 06 01 03 00 10 04 00 01 01 06 00 0c 00 02 12 09 03 00
 ```
 Decompiled human readable code
 ```
@@ -60,7 +60,7 @@ MUL     index: 0    index: 1    index: 1
 INC     index: 0
 0c      00          02
 EQ      index: 0    index: 2
-0d
+12
 INV
 09      03
 JEQ     index: 3
@@ -92,4 +92,9 @@ First, we load four values, 1, 2, 6, and 16 into register. The first value indic
 | JMPF (0a) | 1: relative forward position | Increment current process byte loading index with providing value. |
 | JMPB (0b) | 1: relative backward position | Decrement current process byte loading index with providing value. |
 | EQ (0c) | 1, 2: index | Compare two value's equality and store result to VM's eq flag. |
-| INV (0d) | N/A | Invert current VM's eq flag. |
+| NEQ (0d) | 1, 2: index | Compare two value's equality and store contray result to VM's eq flag. |
+| GT (0e) | 1, 2: index | Check left value is greater than right value and store result o VM's eq flag |
+| GTE (0f) | 1, 2: index | Check left value is greater than or equal to right value and store result o VM's eq flag |
+| LT (10) | 1, 2: index | Check left value is less than right value and store result o VM's eq flag |
+| LTE (11) | 1, 2: index | Check left value is less than or equal to right value and store result o VM's eq flag |
+| INV (12) | N/A | Invert current VM's eq flag. |

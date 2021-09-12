@@ -14,5 +14,10 @@ pub enum Opcode {
 	jmpf
 	jmpb
 	eq
+	neq
+	gt
+	gte
+	lt
+	lte
 	inv
 }

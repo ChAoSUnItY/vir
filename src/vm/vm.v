@@ -82,6 +82,36 @@ pub fn (mut vm VM) run() {
 
 				vm.eq_flag = a == b
 			}
+			.neq {
+				a := vm.get_register()
+				b := vm.get_register()
+
+				vm.eq_flag = a != b
+			}
+			.gt {
+				a := vm.get_register()
+				b := vm.get_register()
+
+				vm.eq_flag = a > b
+			}
+			.gte {
+				a := vm.get_register()
+				b := vm.get_register()
+
+				vm.eq_flag = a >= b
+			}
+			.lt {
+				a := vm.get_register()
+				b := vm.get_register()
+
+				vm.eq_flag = a < b
+			}
+			.lte {
+				a := vm.get_register()
+				b := vm.get_register()
+
+				vm.eq_flag = a <= b
+			}
 			.inv {
 				vm.eq_flag = !vm.eq_flag
 			}

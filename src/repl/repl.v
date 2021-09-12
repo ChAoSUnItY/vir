@@ -163,12 +163,12 @@ fn (mut repl REPL) decompile() {
 
 				// colorize.reset()
 			}
-			.add, .sub, .mul, .div, .eq {
+			.add, .sub, .mul, .div {
 				i1 := repl.next_8_bits()
 				i2 := repl.next_8_bits()
 				i3 := repl.next_8_bits()
 
-				println('${int(opcode).hex()}\t$i1.hex()\t$i2.hex()\t\t$i3.hex()')
+				println('${int(opcode).hex()}\t$i1.hex()\t\t$i2.hex()\t\t$i3.hex()')
 
 				// colorize.magenta()
 				print('$opcode.str().to_upper()\t')
@@ -186,6 +186,18 @@ fn (mut repl REPL) decompile() {
 
 				// colorize.yellow()
 				println('index: $i.str()')
+			}
+			.eq, .neq, .gt, .gte, .lt, .lte {
+				i1 := repl.next_8_bits()
+				i2 := repl.next_8_bits()
+
+				println('${int(opcode).hex()}\t$i1.hex()\t\t$i2.hex()')
+
+				// colorize.magenta()
+				print('$opcode.str().to_upper()\t')
+
+				// colorize.yellow()
+				println('index 0: $i1.str()\tindex 1: $i2.str()')
 			}
 			.inv {
 				println('${int(opcode).hex()}')
