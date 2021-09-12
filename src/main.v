@@ -1,5 +1,4 @@
 import repl { REPL }
-import cintf
 
 [console]
 fn main() {

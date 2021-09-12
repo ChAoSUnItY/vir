@@ -44,6 +44,5 @@ pub fn (v Visitor) emit() []byte {
 	}
 
 	builder << 0x00 // HLT
-
 	return builder
 }
